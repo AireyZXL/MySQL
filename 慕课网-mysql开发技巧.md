@@ -96,6 +96,7 @@ select  u1.id,u1.user_name,u1.`over`,u2.`over` from user1 u1 inner join user2 u2
 |--|--|--|--|
 |3|孙悟空|斗战胜佛|成佛|
 
+***
 
 ### leftJoin
 
@@ -121,6 +122,8 @@ select  a.id,a.user_name,a.`over`,b.`over` from user1 a left join  user2 b on a.
 |id|username|a.over|b.over|
 |--|--|--|--|
 |3 |孙悟空|斗战胜佛|成佛|
+
+***
 
 ### RightJoin
 
@@ -148,6 +151,8 @@ select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a
 |--|--|--|--|
 |1|孙悟空|成佛|斗战胜佛|
 
+***
+
 ### FullJoin
 
 全连接
@@ -161,6 +166,8 @@ select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a
 
 <img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fulljoin%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C.png" width = "700" height = "322" align=center />
 
+***
+
 ### CrossJoin
 
 交叉连接
@@ -170,6 +177,8 @@ select  a.user_name,a.`over`,b.user_name,b.`over` from user1 a cross join user2 
 ```
 
 <img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/%E4%BA%A4%E5%8F%89%E8%BF%9E%E6%8E%A5.png" width = "700" height = "322" align=center />
+
+***
 
 ### 使用join更新表
 
@@ -188,6 +197,7 @@ update user1 a join
 set a.`over`='齐天大圣' where 1=1
 ```
 
+***
 
 一级标题
 ==================
