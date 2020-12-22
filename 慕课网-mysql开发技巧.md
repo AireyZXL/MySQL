@@ -42,13 +42,13 @@ CREATE TABLE `user1` (
 
 
 
-INSERT INTO `blog`.`user1`(`id`, `user_name`, `over`) VALUES (1, '唐僧', '旃檀功德佛');
+INSERT INTO `user1`(`id`, `user_name`, `over`) VALUES (1, '唐僧', '旃檀功德佛');
 
-INSERT INTO `blog`.`user1`(`id`, `user_name`, `over`) VALUES (2, '猪八戒', '净坛使者');
+INSERT INTO `user1`(`id`, `user_name`, `over`) VALUES (2, '猪八戒', '净坛使者');
 
-INSERT INTO `blog`.`user1`(`id`, `user_name`, `over`) VALUES (3, '孙悟空', '斗战胜佛');
+INSERT INTO `user1`(`id`, `user_name`, `over`) VALUES (3, '孙悟空', '斗战胜佛');
 
-INSERT INTO `blog`.`user1`(`id`, `user_name`, `over`) VALUES (4, '沙僧', '金身罗汉');
+INSERT INTO `user1`(`id`, `user_name`, `over`) VALUES (4, '沙僧', '金身罗汉');
 
 
 ***
@@ -67,15 +67,15 @@ CREATE TABLE `user2` (
 
 
 
-INSERT INTO `blog`.`user2`(`id`, `user_name`, `over`) VALUES (1, '孙悟空', '成佛');
+INSERT INTO `user2`(`id`, `user_name`, `over`) VALUES (1, '孙悟空', '成佛');
 
-INSERT INTO `blog`.`user2`(`id`, `user_name`, `over`) VALUES (2, '牛魔王', '被降服');
+INSERT INTO `user2`(`id`, `user_name`, `over`) VALUES (2, '牛魔王', '被降服');
 
-INSERT INTO `blog`.`user2`(`id`, `user_name`, `over`) VALUES (3, '蛟魔王', '被降服');
+INSERT INTO `user2`(`id`, `user_name`, `over`) VALUES (3, '蛟魔王', '被降服');
 
-INSERT INTO `blog`.`user2`(`id`, `user_name`, `over`) VALUES (4, '鹏魔王', '被降服');
+INSERT INTO `user2`(`id`, `user_name`, `over`) VALUES (4, '鹏魔王', '被降服');
 
-INSERT INTO `blog`.`user2`(`id`, `user_name`, `over`) VALUES (5, '狮驼王', '被降服');
+INSERT INTO `user2`(`id`, `user_name`, `over`) VALUES (5, '狮驼王', '被降服');
 
 
 ***
@@ -122,7 +122,74 @@ select  a.id,a.user_name,a.`over`,b.`over` from user1 a left join  user2 b on a.
 |--|--|--|--|
 |3 |孙悟空|斗战胜佛|成佛|
 
+### RightJoin
 
+和左外连接相反
+
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5.png" width = "500" height = "322" align=center />
+
+```sql
+select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a.user_name=b.user_name;
+```
+
+|id|username|b.over|a.over|
+|--|--|--|--|
+|1|孙悟空|成佛|斗战胜佛|
+|2|牛魔王|被降服|NULL|
+|3|蛟魔王|被降服|NULL|
+|4|鹏魔王|被降服|NULL|
+|5|狮驼王|被降服|NULL|
+
+```sql
+select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a.user_name=b.user_name WHERE a.user_name is not null;
+```
+
+|id|username|b.over|a.over|
+|--|--|--|--|
+|1|孙悟空|成佛|斗战胜佛|
+
+### FullJoin
+
+全连接
+
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/%E5%85%A8%E8%BF%9E%E6%8E%A5.png" width = "550" height = "322" align=center />
+
+
+**全连接mysql不支持的解决方案**
+
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fullJoin%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F.png
+" width = "550" height = "322" align=center />
+
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fulljoin%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C.png
+" width = "700" height = "322" align=center />
+
+### CrossJoin
+
+交叉连接
+
+```sql
+select  a.user_name,a.`over`,b.user_name,b.`over` from user1 a cross join user2 b
+```
+
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/%E4%BA%A4%E5%8F%89%E8%BF%9E%E6%8E%A5.png
+" width = "700" height = "322" align=center />
+
+### 使用join更新表
+
+获取两张表中的都存在的数据更新这一条记录
+
+```sql
+update user1 set over='齐天大圣' where user1.user_name in (select b.user_name from user1 a join user2 b on a.user_name=b.user_name);
+```
+error:1093 
+
+**正确更新方式**
+
+```sql
+update user1 a join
+    (select b.user_name  from user1 a inner join user2 b on a.user_name=b.user_name) b on a.user_name=b.user_name
+set a.`over`='齐天大圣' where 1=1
+```
 
 
 一级标题
