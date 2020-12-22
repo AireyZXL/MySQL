@@ -244,14 +244,3 @@ join user_kills c ON c.user_id=b.user_id
 group by a.user_name,b.kills,b.timestr
 having b.kills=max(c.kills)
 ```
-
-一级标题
-==================
-
-二级标题 
----------------
-
-* * *
-
-* List item
-
