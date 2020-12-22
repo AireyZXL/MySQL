@@ -5,7 +5,7 @@
 ## 一.如何正确使用Join语句
 
 
-### 常用的sql语句类型
+### 1.1 常用的sql语句类型
 
 DDL(数据定义语言)
 
@@ -82,7 +82,7 @@ INSERT INTO `user2`(`id`, `user_name`, `over`) VALUES (5, '狮驼王', '被降�
 
 
 
-### InnerJoin
+### 1.2 InnerJoin
 
 把两个表中公共部分查询出来
 
@@ -98,7 +98,7 @@ select  u1.id,u1.user_name,u1.`over`,u2.`over` from user1 u1 inner join user2 u2
 
 ***
 
-### leftJoin
+### 1.3 leftJoin
 
 左外连接，查询左表全部的数据和右表的交集
 
@@ -125,7 +125,7 @@ select  a.id,a.user_name,a.`over`,b.`over` from user1 a left join  user2 b on a.
 
 ***
 
-### RightJoin
+### 1.4 RightJoin
 
 和左外连接相反
 
@@ -153,7 +153,7 @@ select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a
 
 ***
 
-### FullJoin
+### 1.5 FullJoin
 
 全连接
 
@@ -168,7 +168,7 @@ select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a
 
 ***
 
-### CrossJoin
+### 1.6 CrossJoin
 
 交叉连接
 
@@ -180,7 +180,7 @@ select  a.user_name,a.`over`,b.user_name,b.`over` from user1 a cross join user2 
 
 ***
 
-### 使用join更新表
+### 1.7 使用join更新表
 
 获取两张表中的都存在的数据更新这一条记录
 
@@ -198,6 +198,52 @@ set a.`over`='齐天大圣' where 1=1
 ```
 
 ***
+
+### 1.8 使用join优化子查询
+
+
+使用join 优化子查询
+查询出A 表中所有记录,包含共有B
+
+```sql
+select a.user_name,a.over,(select oer from user2 b where a.user_name=b.user_name) AS over2 from user1 a;
+```
+
+使用join优化
+
+```sql
+select a.'user_name',a.'over',b.'over' as over2  
+
+from user1 a
+
+left join user2 b on
+
+a.'user_name'=b.'user_name'; 
+```
+
+***
+
+### 1.9 使用join优化聚合子查询
+
+查询打怪最多的日期
+
+```sql
+select a.user_name,b.timestr,b.kills 
+from user1 a 
+join user_kills b ON a.id=b.user_id 
+where b.kills=(select MAX(c.kills) from user_kills c where c.user_id=b.user_id);
+```
+
+优化后
+
+```sql
+select a.user_name,b.timestr,b.kills 
+from user1 a 
+join user_kills b ON a.id=b.user_id 
+join user_kills c ON c.user_id=b.user_id 
+group by a.user_name,b.kills,b.timestr
+having b.kills=max(c.kills)
+```
 
 一级标题
 ==================
