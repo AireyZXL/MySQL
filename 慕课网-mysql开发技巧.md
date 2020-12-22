@@ -157,11 +157,9 @@ select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a
 
 **全连接mysql不支持的解决方案**
 
-<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fullJoin%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F.png
-" width = "550" height = "322" align=center />
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fullJoin%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F.png" width = "550" height = "322" align=center />
 
-<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fulljoin%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C.png
-" width = "700" height = "322" align=center />
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/fulljoin%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C.png" width = "700" height = "322" align=center />
 
 ### CrossJoin
 
@@ -171,8 +169,7 @@ select  b.id,b.user_name,b.`over`,a.`over` from user1 a right join  user2 b on a
 select  a.user_name,a.`over`,b.user_name,b.`over` from user1 a cross join user2 b
 ```
 
-<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/%E4%BA%A4%E5%8F%89%E8%BF%9E%E6%8E%A5.png
-" width = "700" height = "322" align=center />
+<img src="https://raw.githubusercontent.com/AireyZXL/imageDepository/main/%E4%BA%A4%E5%8F%89%E8%BF%9E%E6%8E%A5.png" width = "700" height = "322" align=center />
 
 ### 使用join更新表
 
